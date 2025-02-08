@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React.js Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>React.js Notes</h1>
+
+        <h2>1. Introduction to React.js</h2>
+        <h3>What is React?</h3>
+        <p>React ek <b>JavaScript library</b> hai jo <b>user interfaces (UI)</b> banane ke liye use hoti hai. Yeh <b>Facebook</b> ne develop ki thi aur ab <b>open-source</b> hai. React ka main focus <b>fast, scalable, aur simple</b> web applications banane par hota hai.</p>
+
+        <h3>Why Use React?</h3>
+
+        <h4>1. Component-Based Architecture</h4>
+        <ul>
+            <li>React <b>components</b> ka use karta hai, jisme ek UI ka <b>chhota part ek independent component</b> hota hai.</li>
+            <li>Components <b>reusable</b> hote hain, jo development ko <b>fast aur efficient</b> banata hai.</li>
+        </ul>
+
+        <h4>2. Fast Performance (Virtual DOM)</h4>
+        <ul>
+            <li>React ek <b>Virtual DOM</b> use karta hai, jo browser ke <b>original DOM se fast</b> hota hai.</li>
+            <li>Yeh sirf <b>necessary changes apply</b> karta hai, jo <b>performance improve</b> karta hai.</li>
+        </ul>
+
+        <h4>3. Single Page Application (SPA) Development</h4>
+        <ul>
+            <li>React mostly <b>SPA applications</b> banane ke liye use hota hai, jisme ek hi page dynamically update hota hai <b>bina reload kiye</b>.</li>
+        </ul>
+
+        <h4>4. Reusability & Maintainability</h4>
+        <ul>
+            <li><b>Components reusable hote hain</b>, jo <b>code maintain karna easy</b> banata hai.</li>
+        </ul>
+
+        <h2>2. Single Page Application (SPA)</h2>
+        <h3>What is SPA?</h3>
+        <p>SPA ek aisi web application hai jo <b>sirf ek HTML page load karti hai</b> aur dynamically content update karti hai bina page reload kiye.</p>
+
+        <h3>How SPA Works?</h3>
+        <h4>1. Initial Load</h4>
+        <ul>
+            <li>Jab ek user website open karta hai, toh ek single <b>HTML file</b> browser me load hoti hai.</li>
+            <li>Saara <b>JavaScript, CSS</b> ek sath load ho jata hai ya phir dynamically fetch hota hai.</li>
+        </ul>
+
+        <h4>2. Routing (Client-Side Routing)</h4>
+        <ul>
+            <li>Traditional websites me har page load hone par <b>server se naye HTML pages fetch</b> hote hain.</li>
+            <li>SPA me routing <b>JavaScript</b> se hoti hai, aur <b>React Router</b> jese libraries use ki jati hain jo bina page reload kiye naye components show karti hain.</li>
+        </ul>
+
+        <h2>3. React vs. Vanilla JavaScript</h2>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>Feature</th>
+                <th>React</th>
+                <th>Vanilla JavaScript</th>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>JavaScript Library</td>
+                <td>Plain JavaScript</td>
+            </tr>
+            <tr>
+                <td>DOM Manipulation</td>
+                <td>Uses Virtual DOM (Fast)</td>
+                <td>Uses Real DOM (Slower)</td>
+            </tr>
+            <tr>
+                <td>UI Structure</td>
+                <td>Component-Based Architecture</td>
+                <td>Manually manage karna hota hai</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Fast due to Virtual DOM</td>
+                <td>Slow due to direct DOM updates</td>
+            </tr>
+            <tr>
+                <td>Reusability</td>
+                <td>Components can be reused</td>
+                <td>Code reuse difficult</td>
+            </tr>
+        </table>
+
+        <h2>4. JSX (JavaScript XML)</h2>
+        <h3>What is JSX?</h3>
+        <p>JSX ek syntax extension hai jo React ke andar <b>HTML-like structure</b> likhne ke liye use hota hai. Yeh JavaScript ke andar HTML likhne ki suvidha deta hai.</p>
+
+        <h3>Why Use JSX?</h3>
+        <ul>
+            <li><b>HTML aur JavaScript</b> ko combine karta hai.</li>
+            <li><b>Code readability</b> aur maintainability improve hoti hai.</li>
+            <li><b>Babel compiler</b> JSX ko JavaScript me convert karta hai, jo browser me efficiently execute hota hai.</li>
+        </ul>
+
+        <h2>5. Why Use the useState Hook?</h2>
+        <p>The <b>useState</b> hook React functional components me state manage karne ke liye use hota hai.</p>
+
+        <h3>Why Do We Need useState?</h3>
+        <ul>
+            <li><b>State Management</b>: Functional components me pehle state nahi hoti thi, useState isse manage karta hai.</li>
+            <li><b>UI Updates</b>: Jab state change hoti hai, toh component <b>automatically re-render</b> hota hai.</li>
+            <li><b>Performance & Simplicity</b>: Class components ke <code>this.state</code> aur <code>setState()</code> ke mukable useState ka use simple hai.</li>
+        </ul>
+
+        <h3>How to Use useState?</h3>
+        <pre>
+import React, { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() => setCount(count + 1)}&gt;Increase&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default Counter;
+        </pre>
+    </div>
+
+</body>
+</html>
