@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React.js Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            line-height: 1.6;
+        }
+        pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, monospace;
+            color: #d63384;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>React.js Notes</h1>
+
+        <!-- Class 01 -->
+        <h1>Class 01</h1>
+
+        <h2>1. Introduction to React.js</h2>
+        <h3>What is React?</h3>
+        <p>
+            React ek <b>JavaScript library</b> hai jo <b>user interfaces (UI)</b> banane ke liye use hoti hai. Yeh <b>Facebook</b> ne develop ki thi aur ab <b>open-source</b> hai. React ka main focus <b>fast, scalable, aur simple</b> web applications banane par hota hai.
+        </p>
+
+        <h3>Why Use React?</h3>
+        <h4>1. Component-Based Architecture</h4>
+        <ul>
+            <li>React <b>components</b> ka use karta hai, jisme ek UI ka <b>chhota part ek independent component</b> hota hai.</li>
+            <li>Components <b>reusable</b> hote hain, jo development ko <b>fast aur efficient</b> banata hai.</li>
+        </ul>
+
+        <h4>2. Fast Performance (Virtual DOM)</h4>
+        <ul>
+            <li>React ek <b>Virtual DOM</b> use karta hai, jo browser ke <b>original DOM se fast</b> hota hai.</li>
+            <li>Yeh sirf <b>necessary changes apply</b> karta hai, jo <b>performance improve</b> karta hai.</li>
+        </ul>
+
+        <h4>3. Single Page Application (SPA) Development</h4>
+        <ul>
+            <li>React mostly <b>SPA applications</b> banane ke liye use hota hai, jisme ek hi page dynamically update hota hai <b>bina reload kiye</b>.</li>
+        </ul>
+
+        <h4>4. Reusability & Maintainability</h4>
+        <ul>
+            <li><b>Components reusable hote hain</b>, jo <b>code maintain karna easy</b> banata hai.</li>
+        </ul>
+
+        <h2>2. Single Page Application (SPA)</h2>
+        <h3>What is SPA?</h3>
+        <p>
+            SPA ek aisi web application hai jo <b>sirf ek HTML page load karti hai</b> aur dynamically content update karti hai bina page reload kiye.
+        </p>
+
+        <h3>How SPA Works?</h3>
+        <h4>1. Initial Load</h4>
+        <ul>
+            <li>Jab ek user website open karta hai, toh ek single <b>HTML file</b> browser me load hoti hai.</li>
+            <li>Saara <b>JavaScript, CSS</b> ek sath load ho jata hai ya phir dynamically fetch hota hai.</li>
+        </ul>
+
+        <h4>2. Routing (Client-Side Routing)</h4>
+        <ul>
+            <li>Traditional websites me har page load hone par <b>server se naye HTML pages fetch</b> hote hain.</li>
+            <li>SPA me routing <b>JavaScript</b> se hoti hai, aur <b>React Router</b> jese libraries use ki jati hain jo bina page reload kiye naye components show karti hain.</li>
+        </ul>
+
+        <h2>3. React vs. Vanilla JavaScript</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>React</th>
+                <th>Vanilla JavaScript</th>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>JavaScript Library</td>
+                <td>Plain JavaScript</td>
+            </tr>
+            <tr>
+                <td>DOM Manipulation</td>
+                <td>Uses Virtual DOM (Fast)</td>
+                <td>Uses Real DOM (Slower)</td>
+            </tr>
+            <tr>
+                <td>UI Structure</td>
+                <td>Component-Based Architecture</td>
+                <td>Manually manage karna hota hai</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Fast due to Virtual DOM</td>
+                <td>Slow due to direct DOM updates</td>
+            </tr>
+            <tr>
+                <td>Reusability</td>
+                <td>Components can be reused</td>
+                <td>Code reuse difficult</td>
+            </tr>
+        </table>
+
+        <!-- Class 02 -->
+        <h1>Class 02</h1>
+
+        <h2>4. JSX (JavaScript XML)</h2>
+        <h3>What is JSX?</h3>
+        <p>
+            JSX ek syntax extension hai jo React ke andar <b>HTML-like structure</b> likhne ke liye use hota hai. Yeh JavaScript ke andar HTML likhne ki suvidha deta hai.
+        </p>
+
+        <h3>Why Use JSX?</h3>
+        <ul>
+            <li><b>HTML aur JavaScript</b> ko combine karta hai.</li>
+            <li><b>Code readability</b> aur maintainability improve hoti hai.</li>
+            <li><b>Babel compiler</b> JSX ko JavaScript me convert karta hai, jo browser me efficiently execute hota hai.</li>
+        </ul>
+
+        <h2>What is useState Hook?</h2>
+        <p>
+            <code>useState</code> is a React Hook that allows you to add state management to functional components. It helps store and update values within a component, ensuring React re-renders the component whenever the state changes.
+        </p>
+
+        <h2>Why Use useState Instead of Regular Variables?</h2>
+        <p>
+            React does not track changes in normal variables, meaning updates won’t trigger a re-render of the component. <code>useState</code> ensures that when a state value changes, React automatically updates the UI.
+        </p>
+
+        <h1>Example: Counter App</h1>
+        <h2>Counter with Variable (UI Doesn't Update)</h2>
+        <pre><code>
+let count = 0;
+
+function Example() {
+  function increase() {
+    count += 1;
+    console.log(count); // Updates in console, but UI doesn't update
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt; {/* UI remains the same */}
+      &lt;button onClick={increase}&gt;Increase&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+        </code></pre>
+
+        <h3>Issue Using Variable</h3>
+        <p>The UI does not update when <code>count</code> changes because React does not track it.</p>
+
+        <h2>Counter with useState (UI Updates Correctly)</h2>
+        <pre><code>
+import { useState } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  function increase() {
+    setCount(count + 1); // Updates state and re-renders the component
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt; {/* UI updates correctly */}
+      &lt;button onClick={increase}&gt;Increase&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+        </code></pre>
+
+        <h2>Why useState is Better?</h2>
+        <ul>
+            <li>Triggers a Re-render – The UI updates when the state changes.</li>
+            <li>Persistent State – React keeps track of state across renders.</li>
+            <li>React’s Virtual DOM Optimization – Ensures efficient updates.</li>
+        </ul>
+
+        <h1>useState Real-World Use Cases</h1>
+        <h2>1. Form Handling (User Input Storage)</h2>
+        <p>Use Case: When we need to store and update input values in a form.</p>
+
+        <h2>2. Toggle Feature (Show/Hide Password, Theme Toggle, Sidebar Toggle)</h2>
+        <p>Use Case: When we need to toggle a feature on/off, such as showing/hiding a password.</p>
+
+        <h2>3. Counter App (Like Button, Cart Quantity, Steps Tracker)</h2>
+        <p>Use Case: Tracking numbers such as likes, cart items, or steps.</p>
+
+        <h2>useState Syntax</h2>
+        <pre><code>
+const [state, setState] = useState(initialValue);
+        </code></pre>
+
+        <h3>Breakdown</h3>
+        <ul>
+            <li><code>state</code>: The current value of the state.</li>
+            <li><code>setState</code>: The function used to update the state.</li>
+            <li><code>initialValue</code>: The initial state value (can be a number, string, boolean, object, or array).</li>
+        </ul>
+
+        <h1>Examples of States</h1>
+        <h2>State with Number</h2>
+        <pre><code>const [count, setCount] = useState(0);</code></pre>
+
+        <h2>State with String</h2>
+        <pre><code>const [name, setName] = useState("abc");</code></pre>
+
+        <h2>State with Boolean</h2>
+        <pre><code>const [isLoggedIn, setIsLoggedIn] = useState(false);</code></pre>
+
+        <h2>State with Object</h2>
+        <pre><code>const [user, setUser] = useState({ name: "John Doe", age: 30 });</code></pre>
+
+        <h2>State with Array</h2>
+        <pre><code>const [items, setItems] = useState(["Apple", "Mango"]);</code></pre>
+
+        <h1>Handling Multiple useState Variables</h1>
+        <h2>Example: Form Handling with Multiple States</h2>
+        <pre><code>
+import { useState } from "react";
+
+function UserForm() {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+
+  return (
+    &lt;div&gt;
+      &lt;input
+        type="text"
+        placeholder="Enter name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      /&gt;
+      &lt;input
+        type="number"
+        placeholder="Enter age"
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+      /&gt;
+      &lt;h3&gt;Name: {name}, Age: {age}&lt;/h3&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserForm;
+        </code></pre>
+
+        <h3>Key Learning Points:</h3>
+        <ul>
+            <li>Multiple <code>useState</code> variables ek saath kaise use karein.</li>
+            <li><code>onChange</code> event kaise kaam karta hai.</li>
+            <li>Controlled components concept.</li>
+        </ul>
+
+        <h2>Task: Create a Form with Name, Email & Password Fields</h2>
+
+        <h1>Updating State with Previous State</h1>
+        <h2>useState with Previous Values (Why Use a Callback Function?)</h2>
+        <p>
+            Whenever the new state depends on the previous state, we should always use the callback function inside <code>setState</code>.
+        </p>
+
+        <h2>Why Should We Use a Callback Function?</h2>
+        <p>
+            React batches state updates, meaning multiple updates inside one function might not reflect immediately. If we directly use <code>setState(value)</code>, React might not update it as expected. Instead, we should use the function version:
+        </p>
+        <pre><code>setState((prevState) => newValue);</code></pre>
+        <p>This ensures we get the latest previous value before updating.</p>
+
+        <h2>Example</h2>
+        <pre><code>
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const incrementByTwo = () => {
+    setCount((prevCount) => prevCount + 2);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Counter: {count}&lt;/h2&gt;
+      &lt;button onClick={incrementByTwo}&gt;Increment by 2&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default Counter;
+        </code></pre>
+
+        <h1>State with Arrays & Objects</h1>
+        <h2>Example with Array</h2>
+        <pre><code>
+import { useState } from "react";
+
+function TodoList() {
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    setTasks([...tasks, `Task ${tasks.length + 1}`]);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={addTask}&gt;Add Task&lt;/button&gt;
+      &lt;ul&gt;
+        {tasks.map((task, index) => (
+          &lt;li key={index}&gt;{task}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default TodoList;
+        </code></pre>
+
+        <h2>Task: Create a "To-Do List" Where Users Can Add and Remove Items</h2>
+        <h3>Example of To-Do List</h3>
+        <pre><code>
+import { useState } from "react";
+
+function TodoList() {
+  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState("");
+
+  // Function to add a new task
+  const addTask = () => {
+    if (task.trim() !== "") {
+      setTasks([...tasks, task]);
+      setTask(""); // Clear input field
+    }
+  };
+
+  // Function to remove a task
+  const removeTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    &lt;div style={{ textAlign: "center", padding: "20px" }}&gt;
+      &lt;h2&gt;To-Do List&lt;/h2&gt;
+      &lt;input
+        type="text"
+        placeholder="Enter a task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      /&gt;
+      &lt;button onClick={addTask}&gt;Add Task&lt;/button&gt;
+
+      &lt;ul&gt;
+        {tasks.map((t, index) => (
+          &lt;li key={index}&gt;
+            {t} &lt;button onClick={() => removeTask(index)}&gt;❌&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default TodoList;
+        </code></pre>
+
+        <h1>Dark Mode & Light Mode Using useState</h1>
+        <pre><code>
+import { useState } from "react";
+
+function ThemeSwitcher() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  return (
+    &lt;div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", height: "100vh", textAlign: "center", padding: "50px" }}&gt;
+      &lt;h1&gt;{darkMode ? "Dark Mode" : "Light Mode"}&lt;/h1&gt;
+      &lt;button onClick={() => setDarkMode(!darkMode)}&gt;Toggle Theme&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default ThemeSwitcher;
+        </code></pre>
+    </div>
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React.js Notes</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>React.js Notes</title>
+        <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -25,131 +25,468 @@
         ul {
             line-height: 1.6;
         }
-    </style>
-</head>
-<body>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>React.js Notes</h1>
+            <h1>Class 01</h1>
+            <h2>1. Introduction to React.js</h2>
+            <h3>What is React?</h3>
+            <p>
+                React ek
+                <b>JavaScript library</b>
+                hai jo
+                <b>user interfaces (UI)</b>
+                banane ke liye use hoti hai. Yeh
+                <b>Facebook</b>
+                ne develop ki thi aur ab
+                <b>open-source</b>
+                hai. React ka main focus
+                <b>fast, scalable, aur simple</b>
+                web applications banane par hota hai.
+            </p>
+            <h3>Why Use React?</h3>
+            <h4>1. Component-Based Architecture</h4>
+            <ul>
+                <li>
+                    React
+                    <b>components</b>
+                    ka use karta hai, jisme ek UI ka
+                    <b>chhota part ek independent component</b>
+                    hota hai.
+                </li>
+                <li>
+                    Components
+                    <b>reusable</b>
+                    hote hain, jo development ko
+                    <b>fast aur efficient</b>
+                    banata hai.
+                </li>
+            </ul>
+            <h4>2. Fast Performance (Virtual DOM)</h4>
+            <ul>
+                <li>
+                    React ek
+                    <b>Virtual DOM</b>
+                    use karta hai, jo browser ke
+                    <b>original DOM se fast</b>
+                    hota hai.
+                </li>
+                <li>
+                    Yeh sirf
+                    <b>necessary changes apply</b>
+                    karta hai, jo
+                    <b>performance improve</b>
+                    karta hai.
+                </li>
+            </ul>
+            <h4>3. Single Page Application (SPA) Development</h4>
+            <ul>
+                <li>
+                    React mostly
+                    <b>SPA applications</b>
+                    banane ke liye use hota hai, jisme ek hi page dynamically update hota hai
+                    <b>bina reload kiye</b>
+                    .
+                </li>
+            </ul>
+            <h4>4. Reusability & Maintainability</h4>
+            <ul>
+                <li>
+                    <b>Components reusable hote hain</b>
+                    , jo
+                    <b>code maintain karna easy</b>
+                    banata hai.
+                </li>
+            </ul>
+            <h2>2. Single Page Application (SPA)</h2>
+            <h3>What is SPA?</h3>
+            <p>
+                SPA ek aisi web application hai jo
+                <b>sirf ek HTML page load karti hai</b>
+                aur dynamically content update karti hai bina page reload kiye.
+            </p>
+            <h3>How SPA Works?</h3>
+            <h4>1. Initial Load</h4>
+            <ul>
+                <li>
+                    Jab ek user website open karta hai, toh ek single
+                    <b>HTML file</b>
+                    browser me load hoti hai.
+                </li>
+                <li>
+                    Saara
+                    <b>JavaScript, CSS</b>
+                    ek sath load ho jata hai ya phir dynamically fetch hota hai.
+                </li>
+            </ul>
+            <h4>2. Routing (Client-Side Routing)</h4>
+            <ul>
+                <li>
+                    Traditional websites me har page load hone par
+                    <b>server se naye HTML pages fetch</b>
+                    hote hain.
+                </li>
+                <li>
+                    SPA me routing
+                    <b>JavaScript</b>
+                    se hoti hai, aur
+                    <b>React Router</b>
+                    jese libraries use ki jati hain jo bina page reload kiye naye components show karti hain.
+                </li>
+            </ul>
+            <h2>3. React vs. Vanilla JavaScript</h2>
+            <table border="1" cellpadding="8" cellspacing="0">
+                <tr>
+                    <th>Feature</th>
+                    <th>React</th>
+                    <th>Vanilla JavaScript</th>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>JavaScript Library</td>
+                    <td>Plain JavaScript</td>
+                </tr>
+                <tr>
+                    <td>DOM Manipulation</td>
+                    <td>Uses Virtual DOM (Fast)</td>
+                    <td>Uses Real DOM (Slower)</td>
+                </tr>
+                <tr>
+                    <td>UI Structure</td>
+                    <td>Component-Based Architecture</td>
+                    <td>Manually manage karna hota hai</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Fast due to Virtual DOM</td>
+                    <td>Slow due to direct DOM updates</td>
+                </tr>
+                <tr>
+                    <td>Reusability</td>
+                    <td>Components can be reused</td>
+                    <td>Code reuse difficult</td>
+                </tr>
+            </table>
+            <h1>Class 02</h1>
+            <h2>4. JSX (JavaScript XML)</h2>
+            <h3>What is JSX?</h3>
+            <p>
+                JSX ek syntax extension hai jo React ke andar
+                <b>HTML-like structure</b>
+                likhne ke liye use hota hai. Yeh JavaScript ke andar HTML likhne ki suvidha deta hai.
+            </p>
+            <h3>Why Use JSX?</h3>
+            <ul>
+                <li>
+                    <b>HTML aur JavaScript</b>
+                    ko combine karta hai.
+                </li>
+                <li>
+                    <b>Code readability</b>
+                    aur maintainability improve hoti hai.
+                </li>
+                <li>
+                    <b>Babel compiler</b>
+                    JSX ko JavaScript me convert karta hai, jo browser me efficiently execute hota hai.
+                </li>
+            </ul>
+            <h2>What is useState hook</h2>
+            <p>
+                useState is a React Hook that allows you to add state management to functional components. It helps store and update values within a component, ensuring React re-renders the component whenever the state changes.
+            </p>
+            <h2>
+                We use useState instead of regular variables
+            </h2>
+            <p>
+                because React does not track changes in normal variables, meaning updates won’t trigger a re-render of the component. useState ensures that when a state value changes, React automatically updates the UI
+            </p>
 
-    <div class="container">
-        <h1>React.js Notes</h1>
+            <h1>Example Second project counter app</h1>
+            <h2> Example counter with variable</h2>
+            <h3>Using a normal variable (won't update UI)</h3>
+            <p>
+                let count = 0;
 
-        <h2>1. Introduction to React.js</h2>
-        <h3>What is React?</h3>
-        <p>React ek <b>JavaScript library</b> hai jo <b>user interfaces (UI)</b> banane ke liye use hoti hai. Yeh <b>Facebook</b> ne develop ki thi aur ab <b>open-source</b> hai. React ka main focus <b>fast, scalable, aur simple</b> web applications banane par hota hai.</p>
+function Example() {
+  function increase() {
+    count += 1;
+    console.log(count); // Updates in console, but UI doesn't update
+  }
 
-        <h3>Why Use React?</h3>
+  return (
+    <div>
+      <p>Count: {count}</p> {/* UI remains the same */}
+      <button onClick={increase}>Increase</button>
+    </div>
+  );
+}
+            </p>
+<h3> ISsue using variable</h3>
+<p> The UI does not update when count changes because React does not track it.
 
-        <h4>1. Component-Based Architecture</h4>
-        <ul>
-            <li>React <b>components</b> ka use karta hai, jisme ek UI ka <b>chhota part ek independent component</b> hota hai.</li>
-            <li>Components <b>reusable</b> hote hain, jo development ko <b>fast aur efficient</b> banata hai.</li>
-        </ul>
+</p>
+<h2>Example using useState</h2>
 
-        <h4>2. Fast Performance (Virtual DOM)</h4>
-        <ul>
-            <li>React ek <b>Virtual DOM</b> use karta hai, jo browser ke <b>original DOM se fast</b> hota hai.</li>
-            <li>Yeh sirf <b>necessary changes apply</b> karta hai, jo <b>performance improve</b> karta hai.</li>
-        </ul>
+<p>
+    import { useState } from "react";
 
-        <h4>3. Single Page Application (SPA) Development</h4>
-        <ul>
-            <li>React mostly <b>SPA applications</b> banane ke liye use hota hai, jisme ek hi page dynamically update hota hai <b>bina reload kiye</b>.</li>
-        </ul>
+function Example() {
+  const [count, setCount] = useState(0);
 
-        <h4>4. Reusability & Maintainability</h4>
-        <ul>
-            <li><b>Components reusable hote hain</b>, jo <b>code maintain karna easy</b> banata hai.</li>
-        </ul>
+  function increase() {
+    setCount(count + 1); // Updates state and re-renders the component
+  }
 
-        <h2>2. Single Page Application (SPA)</h2>
-        <h3>What is SPA?</h3>
-        <p>SPA ek aisi web application hai jo <b>sirf ek HTML page load karti hai</b> aur dynamically content update karti hai bina page reload kiye.</p>
+  return (
+    <div>
+      <p>Count: {count}</p> {/* UI updates correctly */}
+      <button onClick={increase}>Increase</button>
+    </div>
+  );
+}
 
-        <h3>How SPA Works?</h3>
-        <h4>1. Initial Load</h4>
-        <ul>
-            <li>Jab ek user website open karta hai, toh ek single <b>HTML file</b> browser me load hoti hai.</li>
-            <li>Saara <b>JavaScript, CSS</b> ek sath load ho jata hai ya phir dynamically fetch hota hai.</li>
-        </ul>
+</p>
+<h2>Why useState is better?</h2>
+<p>Triggers a Re-render – The UI updates when the state changes.
+    Persistent State – React keeps track of state across renders.
+    React’s Virtual DOM Optimization – Ensures efficient updates.</p>
 
-        <h4>2. Routing (Client-Side Routing)</h4>
-        <ul>
-            <li>Traditional websites me har page load hone par <b>server se naye HTML pages fetch</b> hote hain.</li>
-            <li>SPA me routing <b>JavaScript</b> se hoti hai, aur <b>React Router</b> jese libraries use ki jati hain jo bina page reload kiye naye components show karti hain.</li>
-        </ul>
+    <h1>UseState Real-World Use Cases in React:</h1>
+    <h2>Form Handling (User Input Storage)</h2>
+    <p>Use Case: When we need to store and update input values in a form</p>
+    <h2>Toggle Feature (Show/Hide Password, Theme Toggle, Sidebar Toggle)</h2>
+    <p>Use Case: When we need to toggle a feature on/off  such as showing/hiding a password.</p>
+    <h2> Counter App (Like Button, Cart Quantity, Steps Tracker)</h2>
+    <p>Use Case: Tracking numbers such as likes, cart items, or steps.</p>
 
-        <h2>3. React vs. Vanilla JavaScript</h2>
-        <table border="1" cellpadding="8" cellspacing="0">
-            <tr>
-                <th>Feature</th>
-                <th>React</th>
-                <th>Vanilla JavaScript</th>
-            </tr>
-            <tr>
-                <td>Type</td>
-                <td>JavaScript Library</td>
-                <td>Plain JavaScript</td>
-            </tr>
-            <tr>
-                <td>DOM Manipulation</td>
-                <td>Uses Virtual DOM (Fast)</td>
-                <td>Uses Real DOM (Slower)</td>
-            </tr>
-            <tr>
-                <td>UI Structure</td>
-                <td>Component-Based Architecture</td>
-                <td>Manually manage karna hota hai</td>
-            </tr>
-            <tr>
-                <td>Performance</td>
-                <td>Fast due to Virtual DOM</td>
-                <td>Slow due to direct DOM updates</td>
-            </tr>
-            <tr>
-                <td>Reusability</td>
-                <td>Components can be reused</td>
-                <td>Code reuse difficult</td>
-            </tr>
-        </table>
 
-        <h2>4. JSX (JavaScript XML)</h2>
-        <h3>What is JSX?</h3>
-        <p>JSX ek syntax extension hai jo React ke andar <b>HTML-like structure</b> likhne ke liye use hota hai. Yeh JavaScript ke andar HTML likhne ki suvidha deta hai.</p>
+<h2>useState ka syntax</h2>
+<p>
+    const [state, setState] = useState(initialValue);
 
-        <h3>Why Use JSX?</h3>
-        <ul>
-            <li><b>HTML aur JavaScript</b> ko combine karta hai.</li>
-            <li><b>Code readability</b> aur maintainability improve hoti hai.</li>
-            <li><b>Babel compiler</b> JSX ko JavaScript me convert karta hai, jo browser me efficiently execute hota hai.</li>
-        </ul>
+</p>
+<h3>Breakdown</h3>
+<p>
+    state: This is the current value of the state.
+setState: This is the function used to update the state.
+initialValue: The initial state value (can be a number, string, boolean, object, or array).
 
-        <h2>5. Why Use the useState Hook?</h2>
-        <p>The <b>useState</b> hook React functional components me state manage karne ke liye use hota hai.</p>
+</p>
 
-        <h3>Why Do We Need useState?</h3>
-        <ul>
-            <li><b>State Management</b>: Functional components me pehle state nahi hoti thi, useState isse manage karta hai.</li>
-            <li><b>UI Updates</b>: Jab state change hoti hai, toh component <b>automatically re-render</b> hota hai.</li>
-            <li><b>Performance & Simplicity</b>: Class components ke <code>this.state</code> aur <code>setState()</code> ke mukable useState ka use simple hai.</li>
-        </ul>
 
-        <h3>How to Use useState?</h3>
-        <pre>
-import React, { useState } from 'react';
+<h1>Example of states</h1>
+
+<h2>State with Number</h2>
+<p>const [count, setCount] = useState(0);
+</p>
+
+<h2>State with String</h2>
+
+<p>const [name, setName] = useState("abc");
+</p>
+
+<h2>State with Boolean</h2>
+
+<p>const [isLoggedIn, setIsLoggedIn] = useState(false);
+</p>
+
+<h2>State with Object</h2>
+
+<p>const [user, setUser] = useState({ name: "John Doe", age: 30 });
+</p>
+
+<h2>State with Array</h2>
+
+<p>
+    const [items, setItems] = useState(["Apple", "Mango"]);
+
+</p>
+
+
+
+<h1>Multiple useState variables kaise handle karein?</h1>
+
+<h2> Example: Form Handling with Multiple States</h2>
+
+<p>
+    import { useState } from "react";
+
+function UserForm() {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Enter name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Enter age"
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+      />
+      <h3>Name: {name}, Age: {age}</h3>
+    </div>
+  );
+}
+
+export default UserForm;
+
+</p>
+<h3> Key Learning Points:</h3>
+
+<p>
+    Multiple useState variables ek saath kaise use karein
+onChange event kaise kaam karta hai
+Controlled components concept
+</p>
+
+<h2> Task : Create a form with Name, Email & Password fields</h2>
+<h1>
+    Updating State with Previous State
+</h1>
+<h2>useState with Previous Values (Why Use a Callback Function?)</h2>
+
+<p>Whenever the new state depends on the previous state, we should always use the callback function inside setState.
+
+
+</p>
+
+
+<h2>Why Should We Use a Callback Function?</h2>
+<p>
+    React batches state updates, meaning multiple updates inside one function might not reflect immediately.
+    If we directly use setState(value), React might not update it as expected. Instead, we should use the function version:
+</p>
+<p>example:
+    setState((prevState) => newValue);
+    This ensures we get the latest previous value before updating.
+</p>
+
+<h2>Example</h2>
+<p>
+    import { useState } from "react";
 
 function Counter() {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-    return (
-        &lt;div&gt;
-            &lt;p&gt;Count: {count}&lt;/p&gt;
-            &lt;button onClick={() => setCount(count + 1)}&gt;Increase&lt;/button&gt;
-        &lt;/div&gt;
-    );
+  const incrementByTwo = () => {
+    setCount((prevCount) => prevCount + 2);
+  };
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={incrementByTwo}>Increment by 2</button>
+    </div>
+  );
 }
 
 export default Counter;
-        </pre>
-    </div>
 
-</body>
+</p>
+
+<h1>State with Arrays & Objects</h1>
+<h2>Example with array</h2>
+<p>import { useState } from "react";
+
+    function TodoList() {
+      const [tasks, setTasks] = useState([]);
+    
+      const addTask = () => {
+        setTasks([...tasks, `Task ${tasks.length + 1}`]);
+      };
+    
+      return (
+        <div>
+          <button onClick={addTask}>Add Task</button>
+          <ul>
+            {tasks.map((task, index) => (
+              <li key={index}>{task}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+    
+    export default TodoList;
+    </p>
+
+    <h2> Task : Create a "To-Do List" where users can add and remove items</h2>
+<h3>Example of todo list</h3>
+<p>
+    import { useState } from "react";
+
+function TodoList() {
+  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState("");
+
+  // Function to add a new task
+  const addTask = () => {
+    if (task.trim() !== "") {
+      setTasks([...tasks, task]);
+      setTask(""); // Clear input field
+    }
+  };
+
+  // Function to remove a task
+  const removeTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2>To-Do List</h2>
+      <input
+        type="text"
+        placeholder="Enter a task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      />
+      <button onClick={addTask}>Add Task</button>
+
+      <ul>
+        {tasks.map((t, index) => (
+          <li key={index}>
+            {t} <button onClick={() => removeTask(index)}>❌</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default TodoList;
+
+</p>
+
+    <h1>Dark mode & light mode using useState</h1>
+    <p>
+        import { useState } from "react";
+
+function ThemeSwitcher() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  return (
+    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", height: "100vh", textAlign: "center", padding: "50px" }}>
+      <h1>{darkMode ? "Dark Mode" : "Light Mode"}</h1>
+      <button onClick={() => setDarkMode(!darkMode)}>Toggle Theme</button>
+    </div>
+  );
+}
+
+export default ThemeSwitcher;
+
+    </p>
+
+
+        </div>
+    </body>
 </html>
