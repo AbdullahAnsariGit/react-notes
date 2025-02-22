@@ -1267,6 +1267,152 @@ export default App;
                     <code>map()</code>.
                 </li>
             </ul>
+
+            <h1>Class 05: React Router DOM</h1>
+
+            <h2>1. Introduction to React Router DOM</h2>
+            <p>
+              React Router DOM ek library hai jo React applications mein routing ko handle karti hai. Iska use Single Page Applications (SPAs) mein different pages ya components ko render karne ke liye kiya jata hai, bina page reload kiye.
+            </p>
+            <ul>
+              <li><strong>SPA (Single Page Application):</strong> Ek web application jo ek hi page load karti hai aur uske baad dynamically content ko update karti hai.</li>
+              <li><strong>Routing:</strong> URL ke hisaab se different components ko render karna.</li>
+            </ul>
+          
+            <h2>2. Installation</h2>
+            <p>
+              React Router DOM ko use karne ke liye pehle ise install karna hoga:
+            </p>
+            <pre><code>npm install react-router-dom</code></pre>
+          
+            <h2>3. Basic Setup</h2>
+            <p>
+              React Router DOM ka basic setup karna:
+            </p>
+            <pre><code>
+          import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+          
+          function App() {
+            return (
+              &lt;Router&gt;
+                &lt;Routes&gt;
+                  &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                  &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                  &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+                &lt;/Routes&gt;
+              &lt;/Router&gt;
+            );
+          }
+            </code></pre>
+            <ul>
+              <li><strong>&lt;Router&gt;:</strong> Ye app ko routing capabilities provide karta hai.</li>
+              <li><strong>&lt;Routes&gt;:</strong> Ye multiple routes ko define karne ke liye use hota hai.</li>
+              <li><strong>&lt;Route&gt;:</strong> Har route ke liye path aur element specify karte hain.</li>
+            </ul>
+          
+            <h2>4. Example Components</h2>
+            <p>
+              Home, About, aur Contact components ka example:
+            </p>
+            <pre><code>
+          function Home() {
+            return &lt;h1&gt;Home Page&lt;/h1&gt;;
+          }
+          
+          function About() {
+            return &lt;h1&gt;About Us&lt;/h1&gt;;
+          }
+          
+          function Contact() {
+            return &lt;h1&gt;Contact Us&lt;/h1&gt;;
+          }
+            </code></pre>
+          
+            <h2>5. Navigation with &lt;Link&gt;</h2>
+            <p>
+              React Router DOM mein navigation ke liye <code>&lt;Link&gt;</code> component ka use karte hain:
+            </p>
+            <pre><code>
+          import { Link } from 'react-router-dom';
+          
+          function Navbar() {
+            return (
+              &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/about"&gt;About&lt;/Link&gt;
+                &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+              &lt;/nav&gt;
+            );
+          }
+            </code></pre>
+          
+            <h2>6. Dynamic Routing</h2>
+            <p>
+              Dynamic routing ke liye URL parameters ka use karte hain:
+            </p>
+            <pre><code>
+          &lt;Route path="/user/:id" element={&lt;User /&gt;} /&gt;
+          
+          function User() {
+            const { id } = useParams();
+            return &lt;h1&gt;User ID: {id}&lt;/h1&gt;;
+          }
+            </code></pre>
+          
+            <h2>7. Nested Routes</h2>
+            <p>
+              Nested routes ko define karne ke liye <code>&lt;Outlet&gt;</code> ka use karte hain:
+            </p>
+            <pre><code>
+          &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;}&gt;
+            &lt;Route path="profile" element={&lt;Profile /&gt;} /&gt;
+            &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+          &lt;/Route&gt;
+          
+          function Dashboard() {
+            return (
+              &lt;div&gt;
+                &lt;h1&gt;Dashboard&lt;/h1&gt;
+                &lt;Outlet /&gt;
+              &lt;/div&gt;
+            );
+          }
+            </code></pre>
+          
+            <h2>8. 404 Page (Not Found)</h2>
+            <p>
+              Agar koi route match nahi karta hai toh 404 page dikhane ke liye:
+            </p>
+            <pre><code>
+          &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+          
+          function NotFound() {
+            return &lt;h1&gt;404 - Page Not Found&lt;/h1&gt;;
+          }
+            </code></pre>
+          
+            <h2>9. Programmatic Navigation</h2>
+            <p>
+              Programmatically navigate karne ke liye <code>useNavigate</code> hook ka use karte hain:
+            </p>
+            <pre><code>
+          import { useNavigate } from 'react-router-dom';
+          
+          function Login() {
+            const navigate = useNavigate();
+            return (
+              &lt;button onClick={() => navigate('/dashboard')}&gt;
+                Login
+              &lt;/button&gt;
+            );
+          }
+            </code></pre>
+          
+            <h2>10. Conclusion</h2>
+            <p>
+              React Router DOM ek powerful tool hai jo SPAs mein routing ko handle karta hai. Iska use karke aap dynamic aur interactive web applications bana sakte hain.
+            </p>
+          
         </div>
     </body>
 </html>
