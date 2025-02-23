@@ -110,18 +110,34 @@ import React from "react";
 // }
 import Header from "./components/Header";
 import CCard from "./components/CCard";
+import CustomInput from "./components/CustomInput";
+// import UserIcon from "./assets/icons/usericon.png";
+// import UserKey from "./assets/icons/key.png";
+
+import { UserIcon, UserKey, CutEye, Eye } from "./assets";
 
 function App() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       {/* <Header title="About" title2="Intro" />
       <Header title="Contact Us" title2="Intro 2" />
       <Header /> */}
-      <CCard title="Card 1" />
+      {/* <CCard title="Card 1" />
       <CCard title="Card 2" />
       <CCard title="Card 3" />
-      <CCard title="Card 4" />
+      <CCard title="Card 4" /> */}
+      <CustomInput
+        label="Username"
+        icon={UserIcon}
+        placeholder="Enter your username"
+      />
+      <CustomInput
+        label="Password"
+        icon={UserKey}
+        placeholder="Enter your password"
+        isPassword
+      />
     </div>
   );
 }
