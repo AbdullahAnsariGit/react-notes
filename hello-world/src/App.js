@@ -115,7 +115,12 @@ import CustomInput from "./components/CustomInput";
 // import UserKey from "./assets/icons/key.png";
 
 import { UserIcon, UserKey, CutEye, Eye } from "./assets";
-
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from "./screens/Home";
+import About from "./screens/About";
+import Contact from "./screens/Contact";
+import UserDetails from "./screens/UserDetails";
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <div>
@@ -127,7 +132,7 @@ function App() {
       <CCard title="Card 2" />
       <CCard title="Card 3" />
       <CCard title="Card 4" /> */}
-      <CustomInput
+      {/* <CustomInput
         label="Username"
         icon={UserIcon}
         placeholder="Enter your username"
@@ -137,7 +142,16 @@ function App() {
         icon={UserKey}
         placeholder="Enter your password"
         isPassword
-      />
+      /> */}
+      <Router>
+       <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
