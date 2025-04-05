@@ -9,6 +9,8 @@ const users = [
 
 function UserDetails() {
   const { id } = useParams();
+  console.log('id',id);
+  
   const user = users.find((u) => u.id === parseInt(id));
 
   if (!user) {

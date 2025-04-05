@@ -1412,6 +1412,315 @@ export default App;
             <p>
               React Router DOM ek powerful tool hai jo SPAs mein routing ko handle karta hai. Iska use karke aap dynamic aur interactive web applications bana sakte hain.
             </p>
+
+
+
+            <h1>React useEffect Hook Notes</h1>
+
+            <!-- Introduction -->
+            <h2>1. Introduction to useEffect</h2>
+            <h3>What is useEffect?</h3>
+            <p>
+                <code>useEffect</code> ek React Hook hai jo functional components mein <b>side effects</b> ko handle karne ke liye use hota hai. Side effects woh operations hote hain jo component ke render ke baad chalte hain, jaise data fetching, DOM manipulation, ya subscriptions.
+            </p>
+            <p>
+                Yeh class components ke lifecycle methods (<code>componentDidMount</code>, <code>componentDidUpdate</code>, <code>componentWillUnmount</code>) ka replacement hai.
+            </p>
+
+            <h3>Why Use useEffect?</h3>
+            <ul>
+                <li><b>Side Effects Manage Karna:</b> API calls, event listeners, ya manual DOM updates ko organize karta hai.</li>
+                <li><b>Code Cleanliness:</b> Side effects ko component ke main logic se alag rakhta hai.</li>
+                <li><b>Flexibility:</b> Dependency array ke through control deta hai ki effect kab run kare.</li>
+            </ul>
+
+            <h2>2. Syntax of useEffect</h2>
+            <pre>
+                <code>
+import { useEffect } from "react";
+
+useEffect(() => {
+  // Side effect logic yahan likhein
+  return () => {
+    // Cleanup logic (optional)
+  };
+}, [dependencies]);
+                </code>
+            </pre>
+            <h3>Breakdown</h3>
+            <ul>
+                <li><b>Callback Function:</b> Yeh woh code hai jo effect ke roop mein run hota hai.</li>
+                <li><b>Cleanup Function:</b> Yeh optional hai aur effect ke dobara chalne se pehle ya component unmount hone par chalti hai.</li>
+                <li><b>Dependency Array:</b> Yeh batata hai ki effect kab run karega:
+                    <ul>
+                        <li><b>[]</b> (Empty): Sirf mount par ek baar chalega.</li>
+                        <li><b>[var1, var2]</b>: Jab var1 ya var2 change honge, tab chalega.</li>
+                        <li><b>Omitted</b>: Har render par chalega.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>3. Common Use Cases</h2>
+            <h3>1. Data Fetching</h3>
+            <p>
+                API se data fetch karne ke liye <code>useEffect</code> ka use hota hai jab component mount hota hai.
+            </p>
+            <h4>Example: Fetching Users from API</h4>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []); // Empty array: runs only once on mount
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default UserList;
+                </code>
+            </pre>
+
+            <h3>2. Event Listeners</h3>
+            <p>
+                Browser events (jaise window resize) ko handle karne ke liye <code>useEffect</code> ka use hota hai, aur cleanup se memory leaks roke jate hain.
+            </p>
+            <h4>Example: Window Resize Tracker</h4>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function WindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup: Event listener remove karna
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array: runs once on mount
+
+  return <p>Window Width: {width}px</p>;
+}
+
+export default WindowWidth;
+                </code>
+            </pre>
+
+            <h3>3. Dynamic Updates</h3>
+            <p>
+                Jab koi state ya prop change hota hai, tab effect ko rerun karne ke liye dependency array ka use hota hai.
+            </p>
+            <h4>Example: Counter Logger</h4>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Count updated to:", count);
+  }, [count]); // Runs whenever count changes
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+                </code>
+            </pre>
+
+            <h2>4. Cleanup in useEffect</h2>
+            <h3>Why Cleanup?</h3>
+            <ul>
+                <li><b>Memory Leaks Prevent Karna:</b> Event listeners ya subscriptions ko remove karna zaroori hai jab component unmount hota hai.</li>
+                <li><b>Side Effects Control Karna:</b> Har effect ke pehle purana effect clean hota hai.</li>
+            </ul>
+            <h4>Example: Timer with Cleanup</h4>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    // Cleanup: Interval clear karna
+    return () => clearInterval(interval);
+  }, []); // Empty array: runs once on mount
+
+  return <p>Seconds: {seconds}</p>;
+}
+
+export default Timer;
+                </code>
+            </pre>
+
+            <h2>5. useEffect vs. Lifecycle Methods</h2>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>useEffect</th>
+                    <th>Class Lifecycle Methods</th>
+                </tr>
+                <tr>
+                    <td>Purpose</td>
+                    <td>Side effects handle karta hai</td>
+                    <td>Mount, update, unmount ke liye alag methods</td>
+                </tr>
+                <tr>
+                    <td>Syntax</td>
+                    <td>Ek hook mein sab</td>
+                    <td>Multiple methods (componentDidMount, etc.)</td>
+                </tr>
+                <tr>
+                    <td>Execution</td>
+                    <td>Dependencies par depend karta hai</td>
+                    <td>Fixed lifecycle phases</td>
+                </tr>
+                <tr>
+                    <td>Cleanup</td>
+                    <td>Return function se</td>
+                    <td>componentWillUnmount mein</td>
+                </tr>
+            </table>
+
+            <h2>6. Real-World Use Cases</h2>
+            <h3>1. API Data Fetching with Search</h3>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function SearchUsers() {
+  const [query, setQuery] = useState("");
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (query) {
+      fetch(`https://jsonplaceholder.typicode.com/users?name_like=${query}`)
+        .then((response) => response.json())
+        .then((data) => setUsers(data));
+    }
+  }, [query]); // Runs whenever query changes
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search users..."
+      />
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default SearchUsers;
+                </code>
+            </pre>
+
+            <h3>2. Subscription Setup</h3>
+            <p>
+                Real-time data ke liye subscriptions setup karna (e.g., WebSocket).
+            </p>
+            <pre>
+                <code>
+import { useEffect } from "react";
+
+function Chat() {
+  useEffect(() => {
+    const socket = new WebSocket("wss://example.com");
+
+    socket.onmessage = (event) => {
+      console.log("Message received:", event.data);
+    };
+
+    // Cleanup: WebSocket close karna
+    return () => socket.close();
+  }, []);
+
+  return <p>Chat is active!</p>;
+}
+
+export default Chat;
+                </code>
+            </pre>
+
+            <h2>7. Best Practices</h2>
+            <ul>
+                <li><b>Dependencies Sahi Rakhein:</b> Effect ke andar jo bhi variables use ho rahe hain, unko dependency array mein daalein.</li>
+                <li><b>Cleanup Use Karein:</b> Event listeners, intervals, ya subscriptions ke liye cleanup zaroori hai.</li>
+                <li><b>Logic Extract Karein:</b> Bade effects ko alag functions mein break karein readability ke liye.</li>
+                <li><b>Avoid Infinite Loops:</b> Dependency array ke bina ya galat dependencies se infinite re-renders ho sakte hain.</li>
+            </ul>
+
+            <h2>8. Task: Build a Real-Time Clock</h2>
+            <p>
+                Ek clock banayein jo har second update ho aur component unmount hone par ruk jaye.
+            </p>
+            <h3>Solution</h3>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function Clock() {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return <h2>Current Time: {time}</h2>;
+}
+
+export default Clock;
+                </code>
+            </pre>
+
+            <h2>9. Summary</h2>
+            <ul>
+                <li><code>useEffect</code> side effects ko handle karta hai jaise data fetching aur event listeners.</li>
+                <li>Dependency array se control hota hai ki effect kab chalega.</li>
+                <li>Cleanup function memory leaks ko prevent karta hai.</li>
+                <li>Yeh modern React ka core part hai aur lifecycle methods ka replacement hai.</li>
+            </ul>
           
         </div>
     </body>
