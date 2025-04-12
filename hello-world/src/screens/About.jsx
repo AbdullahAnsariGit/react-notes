@@ -7,6 +7,7 @@ function About() {
       <h1>About</h1>
       <Link to="/">home</Link>
       <Link to="/contact">contact</Link>
+      
     </>
   )
 }

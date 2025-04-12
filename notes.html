@@ -1722,6 +1722,593 @@ export default Clock;
                 <li>Yeh modern React ka core part hai aur lifecycle methods ka replacement hai.</li>
             </ul>
           
+
+            <!-- useEffect -->
+            <h2>1. useEffect Hook</h2>
+            <h3>What is useEffect?</h3>
+            <p>
+                <code>useEffect</code> side effects (jaise API calls, event listeners) ko handle karta hai functional components mein. Yeh lifecycle methods ka kaam karta hai.
+            </p>
+
+            <h3>Why Use useEffect?</h3>
+            <ul>
+                <li><b>Side Effects:</b> Data fetching, DOM updates ko organize karta hai.</li>
+                <li><b>Controlled Execution:</b> Dependency array batata hai effect kab chale.</li>
+                <li><b>Cleanup:</b> Memory leaks rokne ke liye cleanup function.</li>
+            </ul>
+
+            <h3>Syntax</h3>
+            <pre>
+                <code>
+import { useEffect } from "react";
+
+useEffect(() => {
+  // Side effect
+  return () => {
+    // Cleanup
+  };
+}, [dependencies]);
+                </code>
+            </pre>
+            <h4>Breakdown</h4>
+            <ul>
+                <li><b>Callback:</b> Effect ka logic.</li>
+                <li><b>Cleanup:</b> Unmount ya rerun se pehle chalti hai.</li>
+                <li><b>Dependencies:</b>
+                    <ul>
+                        <li><b>[]</b>: Ek baar mount par.</li>
+                        <li><b>[var1]</b>: var1 change hone par.</li>
+                        <li><b>Omitted</b>: Har render par (avoid karein).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Examples</h3>
+            <h4>1. Data Fetching with axios</h4>
+            <p>
+                Ek baar API call jab component mount hota hai.
+            </p>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users?_limit=5")
+      .then((response) => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []); // Empty array: no re-runs
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default UserList;
+                </code>
+            </pre>
+            <h4>Setup</h4>
+            <p>Install axios: <code>npm install axios</code></p>
+
+            <h4>2. Event Listener</h4>
+            <p>
+                Window resize track karna aur cleanup.
+            </p>
+            <pre>
+                <code>
+import { useState, useEffect } from "react";
+
+function WindowSize() {
+  const [size, setSize] = useState({ width: window.innerWidth });
+
+  useEffect(() => {
+    const handleResize = () => setSize({ width: window.innerWidth });
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return <p>Window Width: {size.width}px</p>;
+}
+
+export default WindowSize;
+                </code>
+            </pre>
+
+            <h4>3. Debounced Search with axios</h4>
+            <p>
+                Search input ke liye debounced API call, infinite calls se bachne ke liye.
+            </p>
+            <pre>
+                <code>
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+
+function SearchPosts() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const debounceRef = useRef(null);
+
+  useEffect(() => {
+    if (query) {
+      // Debounce API call
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        axios
+          .get(`https://jsonplaceholder.typicode.com/posts?_limit=5&title_like=${query}`)
+          .then((response) => setResults(response.data))
+          .catch((error) => console.error("Error:", error));
+      }, 500); // 500ms delay
+
+      // Cleanup timeout
+      return () => clearTimeout(debounceRef.current);
+    } else {
+      setResults([]);
+    }
+  }, [query]);
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search posts..."
+      />
+      <ul>
+        {results.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default SearchPosts;
+                </code>
+            </pre>
+            <p><b>Note:</b> Debouncing se frequent API calls roke gaye hain.</p>
+
+            <h3>Best Practices</h3>
+            <ul>
+                <li><b>Dependencies Clear:</b> Effect ke variables ko array mein daalein.</li>
+                <li><b>Cleanup:</b> Timers, listeners, ya API requests cancel karein.</li>
+                <li><b>Debouncing:</b> Search jaise cases mein API calls ko limit karein.</li>
+                <li><b>Error Handling:</b> axios ke saath .catch ya try-catch use karein.</li>
+            </ul>
+
+            <!-- useContext -->
+            <h2>2. useContext Hook</h2>
+            <h3>What is useContext?</h3>
+            <p>
+                <code>useContext</code> Context API ke data ko access karta hai, global state manage karne ke liye, prop drilling ke bina.
+            </p>
+
+            <h3>Why Use useContext?</h3>
+            <ul>
+                <li><b>Global State:</b> App-wide data (theme, auth) share karta hai.</li>
+                <li><b>No Prop Drilling:</b> Deep components mein data seedha pohunchata hai.</li>
+                <li><b>Easy to Use:</b> Functional components ke saath simple syntax.</li>
+            </ul>
+
+            <h3>Syntax</h3>
+            <pre>
+                <code>
+import { useContext } from "react";
+
+const value = useContext(Context);
+                </code>
+            </pre>
+            <h4>Breakdown</h4>
+            <ul>
+                <li><b>Context:</b> <code>createContext</code> se banaya jata hai.</li>
+                <li><b>value:</b> Provider se aaya data.</li>
+            </ul>
+
+            <h3>Examples</h3>
+            <h4>1. Theme Switcher</h4>
+            <p>
+                Theme ko components mein share karna.
+            </p>
+            <pre>
+                <code>
+import { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function ThemeButton() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return (
+    <button
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      style={{
+        background: theme === "dark" ? "#333" : "#fff",
+        color: theme === "dark" ? "#fff" : "#000",
+        padding: "10px",
+      }}
+    >
+      Switch to {theme === "light" ? "Dark" : "Light"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <h2>Theme App</h2>
+      <ThemeButton />
+    </ThemeProvider>
+  );
+}
+
+export default App;
+                </code>
+            </pre>
+
+            <h4>2. User Auth</h4>
+            <p>
+                User login status ko share karna.
+            </p>
+            <pre>
+                <code>
+import { createContext, useContext, useState } from "react";
+
+const AuthContext = createContext();
+
+function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  const login = (name) => setUser({ name });
+  const logout = () => setUser(null);
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+function UserInfo() {
+  const { user, logout } = useContext(AuthContext);
+
+  return user ? (
+    <p>
+      Logged in as {user.name} <button onClick={logout}>Logout</button>
+    </p>
+  ) : (
+    <p>Not logged in</p>
+  );
+}
+
+function LoginForm() {
+  const { login } = useContext(AuthContext);
+  const [name, setName] = useState("");
+
+  return (
+    <div>
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Enter name"
+      />
+      <button onClick={() => login(name)}>Login</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <UserInfo />
+      <LoginForm />
+    </AuthProvider>
+  );
+}
+
+export default App;
+                </code>
+            </pre>
+
+            <h3>Best Practices</h3>
+            <ul>
+                <li><b>Specific Contexts:</b> Har purpose ke liye alag context banayein.</li>
+                <li><b>Stable Values:</b> Complex objects ke liye <code>useMemo</code> consider karein.</li>
+                <li><b>Simple State:</b> Complex logic ke liye <code>useReducer</code> better hai.</li>
+            </ul>
+
+            <!-- useRef -->
+            <h2>3. useRef Hook</h2>
+            <h3>What is useRef?</h3>
+            <p>
+                <code>useRef</code> mutable reference object banata hai jo lifecycle mein persist karta hai. DOM access ya non-rendering state ke liye use hota hai.
+            </p>
+
+            <h3>Why Use useRef?</h3>
+            <ul>
+                <li><b>DOM Manipulation:</b> Elements ko direct access (jaise focus).</li>
+                <li><b>Persistent Values:</b> Values jo re-renders par reset na ho.</li>
+                <li><b>No Re-renders:</b> Ref changes UI update nahi karte.</li>
+            </ul>
+
+            <h3>Syntax</h3>
+            <pre>
+                <code>
+import { useRef } from "react";
+
+const ref = useRef(initialValue);
+                </code>
+            </pre>
+            <h4>Breakdown</h4>
+            <ul>
+                <li><b>ref:</b> <code>current</code> property mein value store hota hai.</li>
+                <li><b>initialValue:</b> Starting value.</li>
+            </ul>
+
+            <h3>Examples</h3>
+            <h4>1. Input Focus</h4>
+            <p>
+                Button click par input focus karna.
+            </p>
+            <pre>
+                <code>
+import { useRef } from "react";
+
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" placeholder="Type here" />
+      <button onClick={focusInput}>Focus</button>
+    </div>
+  );
+}
+
+export default FocusInput;
+                </code>
+            </pre>
+
+            <h4>2. Timer Control</h4>
+            <p>
+                Timer ko control karne ke liye ref ka use.
+            </p>
+            <pre>
+                <code>
+import { useState, useRef, useEffect } from "react";
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
+  const stopTimer = () => {
+    clearInterval(intervalRef.current);
+  };
+
+  return (
+    <div>
+      <p>Seconds: {seconds}</p>
+      <button onClick={stopTimer}>Stop Timer</button>
+    </div>
+  );
+}
+
+export default Timer;
+                </code>
+            </pre>
+
+            <h3>Best Practices</h3>
+            <ul>
+                <li><b>DOM-Specific:</b> Sirf jab DOM access zaroori ho tab use karein.</li>
+                <li><b>State vs Ref:</b> UI updates ke liye <code>useState</code> use karein.</li>
+                <li><b>Ref for Cleanup:</b> Intervals ya timeouts ke liye ref acha hai.</li>
+            </ul>
+
+            <!-- Combined Example -->
+            <h2>4. Combining useEffect, useContext, axios & useRef</h2>
+            <h3>Example: Blog Dashboard</h3>
+            <p>
+                Theme switch, API data fetch, aur input focus ka combination.
+            </p>
+            <pre>
+                <code>
+import { createContext, useContext, useState, useEffect, useRef } from "react";
+import axios from "axios";
+
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function BlogDashboard() {
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [posts, setPosts] = useState([]);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts?_limit=3")
+      .then((response) => setPosts(response.data))
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
+  return (
+    <div
+      style={{
+        background: theme === "dark" ? "#333" : "#fff",
+        color: theme === "dark" ? "#fff" : "#000",
+        padding: "20px",
+      }}
+    >
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        Toggle Theme
+      </button>
+      <input ref={inputRef} placeholder="Search posts..." />
+      <button onClick={() => inputRef.current.focus()}>Focus Input</button>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <BlogDashboard />
+    </ThemeProvider>
+  );
+}
+
+export default App;
+                </code>
+            </pre>
+
+            <h2>5. Tasks</h2>
+            <h3>Task 1: Quote Generator</h3>
+            <p>
+                Ek app banayein jo <code>useEffect</code> aur <code>axios</code> se random quote API se quote fetch kare, aur <code>useRef</code> se button focus rakhe.
+            </p>
+            <h4>Solution</h4>
+            <pre>
+                <code>
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+
+function QuoteGenerator() {
+  const [quote, setQuote] = useState("");
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    fetchQuote();
+    buttonRef.current.focus();
+  }, []);
+
+  const fetchQuote = () => {
+    axios
+      .get("https://api.quotable.io/random")
+      .then((response) => setQuote(response.data.content))
+      .catch((error) => console.error("Error:", error));
+  };
+
+  return (
+    <div>
+      <p>{quote || "Loading..."}</p>
+      <button ref={buttonRef} onClick={fetchQuote}>
+        New Quote
+      </button>
+    </div>
+  );
+}
+
+export default QuoteGenerator;
+                </code>
+            </pre>
+
+            <h3>Task 2: Currency Switcher</h3>
+            <p>
+                Ek app jo <code>useContext</code> se currency (USD/INR) switch kare aur <code>useEffect</code> se page title update kare.
+            </p>
+            <h4>Solution</h4>
+            <pre>
+                <code>
+import { createContext, useContext, useState, useEffect } from "react";
+
+const CurrencyContext = createContext();
+
+function CurrencyProvider({ children }) {
+  const [currency, setCurrency] = useState("USD");
+
+  return (
+    <CurrencyContext.Provider value={{ currency, setCurrency }}>
+      {children}
+    </CurrencyContext.Provider>
+  );
+}
+
+function PriceDisplay() {
+  const { currency, setCurrency } = useContext(CurrencyContext);
+  const price = 100;
+
+  useEffect(() => {
+    document.title = `Price in ${currency}`;
+  }, [currency]);
+
+  return (
+    <div>
+      <p>
+        Price: {currency === "USD" ? `$${price}` : `₹${price * 83}`}
+      </p>
+      <button onClick={() => setCurrency(currency === "USD" ? "INR" : "USD")}>
+        Switch to {currency === "USD" ? "INR" : "USD"}
+      </button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <CurrencyProvider>
+      <PriceDisplay />
+    </CurrencyProvider>
+  );
+}
+
+export default App;
+                </code>
+            </pre>
+
+            <h2>6. Summary</h2>
+            <ul>
+                <li><code>useEffect</code>: Controlled API calls (<code>axios</code>) aur listeners, debouncing se infinite calls roke.</li>
+                <li><code>useContext</code>: Global state ke liye, theme ya auth share karne mein.</li>
+                <li><code>useRef</code>: DOM access ya persistent storage, re-renders ke bina.</li>
+                <li><code>axios</code>: Clean API calls ke liye, error handling ke saath.</li>
+            </ul>
         </div>
     </body>
 </html>
