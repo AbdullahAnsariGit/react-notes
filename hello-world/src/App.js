@@ -1,161 +1,177 @@
-// import React from "react";
+import React, { useMemo, useState } from 'react';
 
-// // const Header = () => {
-// //   return (
-// //     <div style={{ width: '70%', height: 70, background: 'green', display: 'flex', justifyContent: 'space-between', padding: 10 }}>
-// //       <h1>Logo</h1>
-// //       <h2>Title</h2>
-// //     </div>
-// //   )
-// // }
+const Child = React.memo(({ items }) => {
+  console.log('👶 Child Rendered');
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+});
 
-// // const Content = () => {
-// //   return (
-// //     <div style={{ width: '70%', height: 70, background: 'red', display: 'flex', justifyContent: 'space-between', padding: 10 }}>
-// //       <h1>Content</h1>
-// //     </div>
-// //   )
-// // }
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [search, setSearch] = useState('');
 
-// // function Card() {
-// //   return (
-// //     <div className='card'>
-// //       <h1>Mango</h1>
-// //       <h2>Price: 120 rps</h2>
-// //       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-// //     </div>
-// //   )
-// // }
+  const fruits = ['apple', 'banana', 'mango', 'orange'];
 
-// // const Card = () => {
-// //  return (
-// //     <div className='card'>
-// //       <h1>Mango</h1>
-// //       <h2>Price: 120 rps</h2>
-// //       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-// //     </div>
-// //   )
-// // }
+//   // ❌ No useMemo: filtering runs on every render
+  const filteredFruits = fruits.filter(fruit =>
+    fruit.toLowerCase().includes(search.toLowerCase())
+  );
+  console.log('🔍 Filtering fruits (no useMemo)');
 
-// import "./App.css";
-// import { Greeting } from "./components/Card";
-// import mango from "./assets/mango.jpg";
-// import apple from "./assets/apple.jpg";
+    // ✅ useMemo to memoize the filtered list
+    // const filteredFruits = useMemo(() => {
+    //     console.log('🔍 Filtering fruits (useMemo)');
+    //     return fruits.filter(fruit =>
+    //       fruit.toLowerCase().includes(search.toLowerCase())
+    //     );
+    //   }, [search]);
+  return (
+    <div>
+      <h2>❌ Without useMemo</h2>
+      <input
+        type="text"
+        placeholder="Search fruit..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <br />
+      <button onClick={() => setCount(count + 1)}>Re-render Parent ({count})</button>
 
-// function Product() {
+      <Child items={filteredFruits} />
+    </div>
+  );
+};
+
+export default App;
+
+
+
+// import React, { useState, useCallback } from 'react';
+
+// const Child = React.memo(({ onClick }) => {
+//   console.log('👶 Child Rendered');
 //   return (
 //     <div>
-//       <h1>Product</h1>
+//       <button onClick={onClick}>Click from Child</button>
 //     </div>
 //   );
-// }
+// });
 
-// function App() {
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [clicks, setClicks] = useState(0);
+
+//   // ❌ Without useCallback: function gets recreated on every render
+//   const handleClick = () => {
+//     console.log('🧠 handleClick called');
+//     setClicks((prev) => prev + 1);
+//   };
+
+//   // ✅ With useCallback (comment out the above and uncomment below to test)
+//   // const handleClick = useCallback(() => {
+//   //   console.log('🧠 handleClick (useCallback) called');
+//   //   setClicks((prev) => prev + 1);
+//   // }, []);
+
 //   return (
-//     <>
-//       {/* Without using component */}
-//       {/* <div className='card'>
-//         <h1>Mango</h1>
-//         <h2>Price: 120 rps</h2>
-//         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-//       </div>
-//       <div className='card'>
-//         <h1>Mango</h1>
-//         <h2>Price: 120 rps</h2>
-//         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-//       </div>
-//       <div className='card'>
-//         <h1>Mango</h1>
-//         <h2>Price: 120 rps</h2>
-//         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-//       </div>
-//       <div className='card'>
-//         <h1>Mango</h1>
-//         <h2>Price: 120 rps</h2>
-//         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-//       </div>
-//       <div className='card'>
-//         <h1>Mango</h1>
-//         <h2>Price: 120 rps</h2>
-//         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae, iure excepturi ea distinctio modi voluptate aut id dignissimos voluptatem dolores recusandae ipsum assumenda consequuntur suscipit! Veritatis quas eaque totam.</p>
-//       </div> */}
-//       {/* With using component */}
+//     <div>
+//       <h2>Count: {count}</h2>
+//       <h3>Clicks from Child: {clicks}</h3>
+//       <button onClick={() => setCount(count + 1)}>Re-render Parent</button>
 
-//       {/* <Card />
-//       <Card />
-//       <Card />
-//       <Card />
-//       <Card /> */}
-
-//       {/* <GlobalCard tag="#abc" price="120 Rps" />
-//       <GlobalCard name="Orange" price="80 Rps" description="Xyz" />
-//       <GlobalCard name="Apple" price="80 Rps" description="Abc" imgUrl={apple} /> */}
-
-//       {/* <Greeting name="Alex  "/> */}
-//       <Product />
-//     </>
+//       <Child onClick={handleClick} />
+//     </div>
 //   );
-// }
+// };
 
 // export default App;
 
-import React from "react";
 
-// function Product() {
+
+// import React, { useState, useContext, createContext } from 'react';
+
+// // 1️⃣ Context create karo
+// const CounterContext = createContext(null);
+
+// const App = () => {
+//   const [count, setCount] = useState(0);
+
 //   return (
-//     <div>
-//       <h1>Product</h1>
+//     // 2️⃣ Provider se wrap karo
+//     <CounterContext.Provider value={{ count, setCount }}>
+//       <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+//         <h1>🚀 Context API - All in One File</h1>
+//         <Parent />
+//       </div>
+//     </CounterContext.Provider>
+//   );
+// };
+
+// // Parent Component
+// const Parent = () => {
+//   return (
+//     <div style={{ border: '1px solid gray', padding: '10px', marginTop: '10px' }}>
+//       <h2>👨‍👩‍👧 Parent</h2>
+//       <Child />
 //     </div>
 //   );
-// }
-import Header from "./components/Header";
-import CCard from "./components/CCard";
-import CustomInput from "./components/CustomInput";
-// import UserIcon from "./assets/icons/usericon.png";
-// import UserKey from "./assets/icons/key.png";
+// };
 
-import { UserIcon, UserKey, CutEye, Eye } from "./assets";
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from "./screens/Home";
-import About from "./screens/About";
-import Contact from "./screens/Contact";
-import UserDetails from "./screens/UserDetails";
-import Navbar from "./components/Navbar";
-function App() {
-  return (
-    <div>
-      {/* <Header /> */}
-      {/* <Header title="About" title2="Intro" />
-      <Header title="Contact Us" title2="Intro 2" />
-      <Header /> */}
-      {/* <CCard title="Card 1" />
-      <CCard title="Card 2" />
-      <CCard title="Card 3" />
-      <CCard title="Card 4" /> */}
-      {/* <CustomInput
-        label="Username"
-        icon={UserIcon}
-        placeholder="Enter your username"
-      />
-      <CustomInput
-        label="Password"
-        icon={UserKey}
-        placeholder="Enter your password"
-        isPassword
-      /> */}
-      <Router>
-       <Navbar />
+// // Child Component
+// const Child = () => {
+//   return (
+//     <div style={{ border: '1px solid lightgray', padding: '10px', marginTop: '10px' }}>
+//       <h3>🧒 Child</h3>
+//       <GrandChild />
+//     </div>
+//   );
+// };
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/user/:id" element={<UserDetails />} />
+// // GrandChild Component (Context ka use yahin hoga)
+// const GrandChild = () => {
+//   const { count, setCount } = useContext(CounterContext);
 
-        </Routes>
-      </Router>
-    </div>
-  );
-}
+//   return (
+//     <div style={{ border: '1px dashed #aaa', padding: '10px', marginTop: '10px' }}>
+//       <h4>👶 GrandChild</h4>
+//       <p>Counter value: <strong>{count}</strong></p>
+//       <button onClick={() => setCount(count + 1)}>➕ Increment</button>
+//     </div>
+//   );
+// };
 
-export default App;
+// export default App;
+
+
+
+// import React, { useRef } from 'react';
+
+// const App = () => {
+//   // useRef ka use input field ko refer karne ke liye
+//   const inputRef = useRef(null);
+
+//   const handleFocus = () => {
+//     inputRef.current.focus(); // Direct DOM access
+//   };
+
+//   return (
+//     <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+//       <h1>🔍 useRef Example - Input Focus</h1>
+//       <input
+//         ref={inputRef}
+//         type="text"
+//         placeholder="Type something..."
+//         style={{ padding: '10px', fontSize: '16px' }}
+//       />
+//       <br /><br />
+//       <button onClick={handleFocus}>🎯 Focus Input</button>
+//     </div>
+//   );
+// };
+
+// export default App;

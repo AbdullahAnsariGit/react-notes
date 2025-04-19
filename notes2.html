@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>React Hooks Notes - useMemo & useCallback</title>
+        <style>
+    body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.7; background: #fdfdfd; }
+    h1, h2 { color: #333366; }
+    code { background-color: #f2f2f2; padding: 2px 6px; border-radius: 4px; }
+    .note-box { background: #f0f8ff; padding: 10px; border-left: 4px solid #00aaff; margin-bottom: 30px; }
+    ul { margin-top: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>React Hooks:
+            <code>useMemo</code> aur
+            <code>useCallback</code>
+        </h1>
+        <div class="note-box">
+            <h2>📌 useMemo kya hota hai?</h2>
+            <p>
+                <strong>useMemo</strong> ek hook hai jo kisi value (jaise filtered list, calculation ka result) ko yaad (memoize) karta hai.
+            </p>
+            <h3>💡 Use Case:</h3>
+            <ul>
+                <li>Jab apko koi mehngi calculation har render par repeat nahi karni.</li>
+                <li>Jab ap filtered data bana rahe ho (e.g., search).</li>
+                <li>Performance ko better banane ke liye.</li>
+            </ul>
+            <h3>✅ Kyun use karein?</h3>
+            <p>Bar bar same calculation se bacha ja sakta hai, sirf tab calculate kare jab dependencies (like input value) change ho.</p>
+        </div>
+        <div class="note-box">
+            <h2>📌 useCallback kya hota hai?</h2>
+            <p>
+                <strong>useCallback</strong> ek hook hai jo ek function ko yaad rakhta hai — taake har render par naye function ka reference create na ho.
+            </p>
+            <h3>💡 Use Case:</h3>
+            <ul>
+                <li>Agar aap ek function ko child component ko bhej rahe ho.</li>
+                <li>React.memo ke sath jab unnecessary re-render se bachna ho.</li>
+                <li>Jab function har baar same kaam karta hai, lekin baar baar naya ban raha ho.</li>
+            </ul>
+            <h3>✅ Kyun use karein?</h3>
+            <p>Child component unnecessary render na kare, jab function ki value waise hi ho.</p>
+        </div>
+        <div class="note-box">
+            <h2>🎯 Summary:</h2>
+            <ul>
+                <li>
+                    <strong>useMemo</strong> => value yaad rakhta hai (e.g., filtered list)
+                </li>
+                <li>
+                    <strong>useCallback</strong> => function yaad rakhta hai (e.g., onClick handler)
+                </li>
+                <li>Dono ka use performance optimization ke liye hota hai</li>
+            </ul>
+        </div>
+        <h1>📚 React Context API </h1>
+        <div class="section">
+            <h2>🔍 Context API kya hota hai?</h2>
+            <div class="box">
+                Context API ek system hai jisse hum data ko ek component se dusre component tak bhej sakte hain
+                <strong>bina props ke</strong>
+                .
+            </div>
+        </div>
+        <div class="section">
+            <h2>💡 Use Case:</h2>
+            <ul>
+                <li>Jab aapko deeply nested components tak data bhejna ho.</li>
+                <li>Jab aapko bar bar props drilling se bachna ho (matlab data ko Parent → Child → GrandChild sab jagah props se bhejna).</li>
+                <li>Example: theme, language, login user data, cart items, counter value, etc.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>✅ Steps to Use Context API:</h2>
+            <ol>
+                <li>
+                    <strong>1.</strong> Create context using
+                    <code>createContext()</code>
+                </li>
+                <li>
+                    <strong>2.</strong> Wrap parent component with
+                    <code>Context.Provider</code>
+                </li>
+                <li>
+                    <strong>3.</strong> Use
+                    <code>useContext()</code> in child to access data
+                </li>
+            </ol>
+        </div>
+        <div class="section">
+            <h2>🎯 Fayda kya hai?</h2>
+            <ul>
+                <li>Code clean ho jata hai</li>
+                <li>Props drilling ki problem khatam ho jati hai</li>
+                <li>Components re-use karna easy ho jata hai</li>
+            </ul>
+        </div>
+        <h1>📘 React useRef Hook</h1>
+
+        <div class="section">
+          <h2>🔍 useRef kya hota hai?</h2>
+          <div class="box">
+            <strong>useRef</strong> ek hook hai jo hume kisi bhi DOM element ka reference deta hai bina component ko re-render kiye.
+          </div>
+        </div>
+      
+        <div class="section">
+          <h2>💡 Kab use karte hain?</h2>
+          <ul>
+            <li>Input field ko automatically focus dena ho</li>
+            <li>Koi bhi DOM element access karna ho (jaise button, div, etc)</li>
+            <li>Ek value ko store karna ho jo re-render pe change na ho</li>
+            <li>Timers, previous values, etc handle karne ke liye</li>
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h2>✅ Example:</h2>
+          <code>
+            const inputRef = useRef(null); <br />
+            &lt;input ref=&#123;inputRef&#125; /&gt; <br />
+            inputRef.current.focus();
+          </code>
+        </div>
+      
+        <div class="section">
+          <h2>🎯 Fayda kya hai?</h2>
+          <ul>
+            <li>DOM directly control kar sakte hain</li>
+            <li>Kisi bhi cheez ka reference rakha ja sakta hai bina render ke</li>
+            <li>Performance improve hoti hai (no extra re-renders)</li>
+          </ul>
+        </div>
+    </body>
+</html>
