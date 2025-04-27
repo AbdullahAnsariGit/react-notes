@@ -1,60 +1,63 @@
-import React, { useMemo, useState } from 'react';
+// import React, { useMemo, useState } from "react";
 
-const Child = React.memo(({ items }) => {
-  console.log('👶 Child Rendered');
-  return (
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
-  );
-});
+// // Child Component
+// const Child = React.memo(({ items }) => {
+//   console.log("👶 Child Rendered");
+//   return (
+//     <ul>
+//       {items.map((item, index) => (
+//         <li key={index}>{item}</li>
+//       ))}
+//     </ul>
+//   );
+// });
 
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [search, setSearch] = useState('');
+// // Parent Component
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [search, setSearch] = useState("");
 
-  const fruits = ['apple', 'banana', 'mango', 'orange'];
+//   const fruits = ["apple", "banana", "mango", "orange", "graphes"];
 
-//   // ❌ No useMemo: filtering runs on every render
-  const filteredFruits = fruits.filter(fruit =>
-    fruit.toLowerCase().includes(search.toLowerCase())
-  );
-  console.log('🔍 Filtering fruits (no useMemo)');
+//   //   // ❌ No useMemo: filtering runs on every render
+//   const filteredFruits = fruits.filter((fruit) =>
+//     fruit.toLowerCase().includes(search.toLowerCase())
+//   );
+//   console.log("🔍 Filtering fruits (no useMemo)");
 
-    // ✅ useMemo to memoize the filtered list
-    // const filteredFruits = useMemo(() => {
-    //     console.log('🔍 Filtering fruits (useMemo)');
-    //     return fruits.filter(fruit =>
-    //       fruit.toLowerCase().includes(search.toLowerCase())
-    //     );
-    //   }, [search]);
-  return (
-    <div>
-      <h2>❌ Without useMemo</h2>
-      <input
-        type="text"
-        placeholder="Search fruit..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <br />
-      <button onClick={() => setCount(count + 1)}>Re-render Parent ({count})</button>
+//   // ✅ useMemo to memoize the filtered list
+//   // const filteredFruits = useMemo(() => {
+//   //     console.log('🔍 Filtering fruits (useMemo)');
+//   //     return fruits.filter(fruit =>
+//   //       fruit.toLowerCase().includes(search.toLowerCase())
+//   //     );
+//   //   }, [search]);
+//   return (
+//     <div>
+//       <h2>❌ Without useMemo</h2>
+//       <input
+//         type="text"
+//         placeholder="Search fruit..."
+//         value={search}
+//         onChange={(e) => setSearch(e.target.value)}
+//       />
+//       <br />
+//       <button onClick={() => setCount(count + 1)}>
+//         Re-render Parent ({count})
+//       </button>
 
-      <Child items={filteredFruits} />
-    </div>
-  );
-};
+//       <Child items={filteredFruits} />
+//     </div>
+//   );
+// };
 
-export default App;
+// export default App;
 
+// import React, { useState, useCallback } from "react";
 
-
-// import React, { useState, useCallback } from 'react';
-
+// // Child Component
 // const Child = React.memo(({ onClick }) => {
-//   console.log('👶 Child Rendered');
+//   console.log("👶 Child Rendered");
 //   return (
 //     <div>
 //       <button onClick={onClick}>Click from Child</button>
@@ -62,21 +65,22 @@ export default App;
 //   );
 // });
 
+// // Parent Component
 // const App = () => {
 //   const [count, setCount] = useState(0);
 //   const [clicks, setClicks] = useState(0);
 
 //   // ❌ Without useCallback: function gets recreated on every render
-//   const handleClick = () => {
-//     console.log('🧠 handleClick called');
-//     setClicks((prev) => prev + 1);
-//   };
+//   // const handleClick = () => {
+//   //   console.log("🧠 handleClick called");
+//   //   setClicks((prev) => prev + 1);
+//   // };
 
 //   // ✅ With useCallback (comment out the above and uncomment below to test)
-//   // const handleClick = useCallback(() => {
-//   //   console.log('🧠 handleClick (useCallback) called');
-//   //   setClicks((prev) => prev + 1);
-//   // }, []);
+//   const handleClick = useCallback(() => {
+//     console.log("🧠 handleClick (useCallback) called");
+//     setClicks((prev) => prev + 1);
+//   }, []);
 
 //   return (
 //     <div>
@@ -91,63 +95,75 @@ export default App;
 
 // export default App;
 
+import React, { useState, useContext, createContext } from "react";
 
+// 1️⃣ Context create karo
+const CounterContext = createContext(null);
 
-// import React, { useState, useContext, createContext } from 'react';
+const App = () => {
+  const [count, setCount] = useState(0);
 
-// // 1️⃣ Context create karo
-// const CounterContext = createContext(null);
+  return (
+    // 2️⃣ Provider se wrap karo
+    <CounterContext.Provider value={{ count, setCount }}>
+      <div style={{ padding: "20px", fontFamily: "Arial" }}>
+        <h1>🚀 Context API - All in One File</h1>
+        <Parent />
+      </div>
+    </CounterContext.Provider>
+  );
+};
 
-// const App = () => {
-//   const [count, setCount] = useState(0);
+// Parent Component
+const Parent = () => {
+  const { count, setCount } = useContext(CounterContext);
+  return (
+    <div
+      style={{ border: "1px solid gray", padding: "10px", marginTop: "10px" }}
+    >
+      <h2>👨‍👩‍👧 Parent {count}</h2>
+      <Child />
+    </div>
+  );
+};
 
-//   return (
-//     // 2️⃣ Provider se wrap karo
-//     <CounterContext.Provider value={{ count, setCount }}>
-//       <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-//         <h1>🚀 Context API - All in One File</h1>
-//         <Parent />
-//       </div>
-//     </CounterContext.Provider>
-//   );
-// };
+// Child Component
+const Child = () => {
+  const { count, setCount } = useContext(CounterContext);
+  return (
+    <div
+      style={{
+        border: "1px solid lightgray",
+        padding: "10px",
+        marginTop: "10px",
+      }}
+    >
+      <h3>🧒 {count}</h3>
+      <GrandChild />
+    </div>
+  );
+};
 
-// // Parent Component
-// const Parent = () => {
-//   return (
-//     <div style={{ border: '1px solid gray', padding: '10px', marginTop: '10px' }}>
-//       <h2>👨‍👩‍👧 Parent</h2>
-//       <Child />
-//     </div>
-//   );
-// };
+// GrandChild Component (Context ka use yahin hoga)
+const GrandChild = () => {
+  const { count, setCount } = useContext(CounterContext);
 
-// // Child Component
-// const Child = () => {
-//   return (
-//     <div style={{ border: '1px solid lightgray', padding: '10px', marginTop: '10px' }}>
-//       <h3>🧒 Child</h3>
-//       <GrandChild />
-//     </div>
-//   );
-// };
+  return (
+    <div
+      style={{ border: "1px dashed #aaa", padding: "10px", marginTop: "10px" }}
+    >
+      <h4>👶 GrandChild</h4>
+      <p>
+        Counter value: <strong>{count}</strong>
+      </p>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
+        ➕ Increment
+      </button>
+    </div>
+  );
+};
 
-// // GrandChild Component (Context ka use yahin hoga)
-// const GrandChild = () => {
-//   const { count, setCount } = useContext(CounterContext);
-
-//   return (
-//     <div style={{ border: '1px dashed #aaa', padding: '10px', marginTop: '10px' }}>
-//       <h4>👶 GrandChild</h4>
-//       <p>Counter value: <strong>{count}</strong></p>
-//       <button onClick={() => setCount(count + 1)}>➕ Increment</button>
-//     </div>
-//   );
-// };
-
-// export default App;
-
-
+export default App;
 
 // import React, { useRef } from 'react';
 

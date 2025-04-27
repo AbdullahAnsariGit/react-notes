@@ -1,0 +1,38 @@
+1- Redux install
+
+npm i @reduxjs/toolkit 
+npm i react-redux 
+npm i redux-persist
+
+
+2- Create a folder name redux
+
+3- Inside redux folder create a store file name index.js / store.js so on.
+
+4- Inside a store file, 
+a) import configureStore from redux toolkit
+b) import persistStore, persistReducer from redux persist
+c) import storage from redux-persist/lib/storage
+d) import your slices from your slice file
+
+
+5- Persist configuration
+
+6- Create persisted reducer
+
+7- Initialize store
+
+8- export persist store
+
+9- create a file for your slice in ourcase counterSlice
+
+10- import { createSlice } from "@reduxjs/toolkit";
+
+
+11- Wrap your whole app in provider and persistProvider (Main.jsx or App.jsx)
+
+
+
+
+
+
