@@ -6,8 +6,8 @@ import Card from './components/Card';
 
 function App() {
   // Get data from store using redux
-  const counter = useSelector((store) => store.counter);
-  const dispatch = useDispatch();
+  // const counter = useSelector((store) => store.counter);
+  // const dispatch = useDispatch();
 
   // const store = useSelector((store) => store)
   // Send data to store using redux

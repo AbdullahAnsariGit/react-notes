@@ -11,7 +11,7 @@ const counterSlice = createSlice({
       state.value += 1;
       state.name = "Counter Increment";
     },
-    
+
     decrement: (state) => {
       state.value -= 1;
       state.name = "Counter Decrement";
